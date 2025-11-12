@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Toggle sidebar visibility
   toggleButton.addEventListener("click", () => {
-      nav.classList.toggle("active");
+    nav.classList.toggle("active");
   });
 });
 

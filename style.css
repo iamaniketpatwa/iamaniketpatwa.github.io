@@ -4,20 +4,56 @@
 
 html {
   font-family: system-ui;
+  overflow-y: scroll;
   scroll-behavior: smooth;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  height: 100%;
 }
 
 body {
+  overflow-y: scroll;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
   margin: 0;
   font-size: 1.25rem;
   background: black;
   color: white;
   padding: 0;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+  /* ✅ Chrome, Safari, Opera */
+}
+
+main {
+  padding: 4rem 8vw;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+main {
+  justify-content: flex-start !important;
 }
 
 section {
-  height: 70vh;
+  margin: 0;
+  padding: 1.5rem;
+  box-sizing: border-box;
 }
 
 nav {
@@ -25,11 +61,12 @@ nav {
   backdrop-filter: blur(10px);
   border-radius: 8px;
   padding: 10px;
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   width: 20rem;
+  height: 100vh;
   padding-block: 2rem;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
@@ -38,6 +75,14 @@ nav {
 
 nav.active {
   transform: translateX(0);
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
 }
 
 .nav-list {
@@ -77,16 +122,45 @@ nav.active {
   z-index: 15;
 }
 
-main {
-  padding: 100px 5%;
-  min-height: 100vh;
-  width: 100vw;
-  box-sizing: border-box;
+#home.hero {
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  text-align: center;
+  padding: 2rem 8vw;
+}
+
+#contact h1,
+.section-contact h1 {
+  margin-bottom: 1rem;
+}
+
+.section-hobbies,
+.section {
+  overflow-x: visible;
+  overflow-y: visible;
+  box-sizing: border-box;
+}
+
+.about-section,
+.section-hobbies,
+.hobbies,
+.photo-preview {
+  margin: 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.section+.section {
+  padding-top: 2.5rem;
+}
+
+.section {
+  min-height: 0 !important;
+  height: auto !important;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 .subtitle {
@@ -111,15 +185,20 @@ main {
 }
 
 .spacer {
-  height: 10%;
+  height: 1rem;
 }
 
-
+.spacer {
+  height: 0.5rem !important;
+}
 
 .social-section {
   max-width: 340px;
   margin: auto;
   text-align: left;
+  margin-top: 0.5rem;
+  padding-top: 0;
+  padding-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -146,16 +225,13 @@ main {
   height: 22px;
   flex-shrink: 0;
   filter: invert(1);
-  ;
 }
-
 
 .social-card a {
   color: #e6e6e6;
   font-size: 0.95rem;
   text-decoration: none;
   overflow-wrap: anywhere;
-  /* keeps usernames from overflowing */
 }
 
 .social-card a:hover {
@@ -163,7 +239,7 @@ main {
 }
 
 .about-section p {
-  max-width: 60vw;
+  max-width: 100ch;
   margin: 0 auto;
   padding: 20px;
   font-size: 1rem;
@@ -174,12 +250,163 @@ main {
   text-align: justify;
 }
 
+.photo-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(240px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
 
+.photo {
+  background: #cccccc;
+  height: 300px;
+  width: 240px;
+  padding: 10px 10px 28px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 100%;
+}
 
+.photo:hover {
+  transform: translateY(-8px) scale(1.03) rotate(1deg);
+  box-shadow: 0 12px 35px rgba(255, 64, 129, 0.25),
+    0 8px 30px rgba(0, 0, 0, 0.7);
+}
 
+.photo img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 6px;
+  transition: transform 0.3s ease;
+}
 
+.photo img:hover {
+  transform: rotate(2deg) scale(1.03);
+  box-shadow: 0 8px 25px rgba(255, 64, 129, 0.15),
+    0 6px 20px rgba(0, 0, 0, 0.6);
+}
 
-/* Responsive Adjustments for Animation and Scaling */
+.photo figcaption {
+  margin-top: 10px;
+  font-family: "Brush Script MT", cursive;
+  font-size: 1.2rem;
+  color: #000000;
+}
+
+.photo figcaption:hover {
+  color: #ff4081;
+  cursor: pointer;
+}
+
+.hobbies {
+  list-style: none;
+  margin: 2rem auto;
+  padding: 0;
+  max-width: 700px;
+}
+
+.hobbies li {
+  background: #121212;
+  border-radius: 10px;
+  padding: 1.5rem;
+  position: relative;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.hobbies h4 {
+  color: #ff4081;
+  margin-bottom: 0.5rem;
+}
+
+.hobbies p {
+  color: #ccc;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.hobbies-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.photo-preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  align-items: start;
+  width: 100%;
+  margin: 4rem auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.photography {
+  box-sizing: border-box;
+  /* include padding/border in width */
+  background: #cccccc;
+  padding: 10px 10px 18px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 100%;
+  max-width: 360px;
+  min-width: 240px;
+  overflow: visible;
+  position: relative;
+}
+
+.photography:hover {
+  box-shadow: 0 12px 35px rgba(255, 64, 129, 0.25),
+    0 8px 30px rgba(0, 0, 0, 0.7);
+}
+
+.photography img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 380px;
+  object-fit: contain;
+  border-radius: 6px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.photography img:hover {
+  transform: rotate(2deg) scale(1.3);
+  box-shadow: 0 12px 40px rgba(255, 64, 129, 0.3),
+    0 15px 35px rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  position: relative;
+}
+
+.photography figcaption {
+  margin-top: 10px;
+  font-family: "Brush Script MT", cursive;
+  font-size: 1.2rem;
+  color: #000000;
+}
+
+.photography figcaption:hover {
+  color: #ff4081;
+  cursor: pointer;
+}
+
 @media (max-width: 1200px) {
   .subtitle {
     font-size: 2.5rem;
@@ -191,6 +418,15 @@ main {
 
   .name {
     font-size: 1.8rem;
+  }
+
+  .photo-preview {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .photo-row {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.8rem;
   }
 
 }
@@ -209,6 +445,16 @@ main {
     font-size: 1.5rem;
   }
 
+  .photo-preview {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .photo-row {
+    grid-template-columns: repeat(1, 1fr);
+    /* ✅ 2 columns on tablets */
+    gap: 1.5rem;
+  }
+
 }
 
 @media (max-width: 480px) {
@@ -222,6 +468,15 @@ main {
 
   .name {
     font-size: 1.2rem;
+  }
+
+  .photo-preview {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .photo-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
 }
